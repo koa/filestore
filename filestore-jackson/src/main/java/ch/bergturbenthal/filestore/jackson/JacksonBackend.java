@@ -6,9 +6,10 @@ package ch.bergturbenthal.filestore.jackson;
 import java.io.File;
 import java.io.IOException;
 
-import org.codehaus.jackson.map.ObjectMapper;
-
 import ch.bergturbenthal.filestore.core.AbstractFileBackend;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 
 /**
  * TODO: add type comment.
@@ -20,6 +21,9 @@ public class JacksonBackend<T> extends AbstractFileBackend<T> {
 
 	private final static ObjectMapper mapper = new ObjectMapper();
 	private static final String SUFFIX = ".json";
+	static {
+		mapper.registerModule(new JodaModule());
+	}
 	private final Class<T> type;
 
 	/**
